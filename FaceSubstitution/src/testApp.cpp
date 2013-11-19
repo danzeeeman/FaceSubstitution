@@ -3,13 +3,10 @@
 using namespace ofxCv;
 
 void testApp::setup() {
-    cout<<"here"<<endl;
 	cloneReady = false;
     ofSetLogLevel(OF_LOG_VERBOSE);
-    cout<<"loadFace"<<endl;
     cam.listDevices();
     cam.setDeviceID(0);
-    cout<<"cams"<<endl;
 	cam.initGrabber(1280, 720);
 	clone.setup(1280, 720);
 	clone.setStrength(0);
@@ -25,9 +22,7 @@ void testApp::setup() {
 	
 	strength = 0;
 	targetStrength = 0;
-    cout<<"loadFace"<<endl;
 	loadFace("marina.jpg");
-
     server.setName("cameraRaw");
 	
 //	ui.setup();
