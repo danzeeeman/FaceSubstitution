@@ -5,7 +5,7 @@
 #include "Clone.h"
 #include "ofxFaceTracker.h"
 #include "ofxFaceTrackerThreaded.h"
-
+#include "ofxXmlSettings.h"
 
 #include "ofxUI.h"
 class ofxEasyUI {

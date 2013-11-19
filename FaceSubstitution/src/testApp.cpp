@@ -5,8 +5,15 @@ using namespace ofxCv;
 void testApp::setup() {
 	cloneReady = false;
     ofSetLogLevel(OF_LOG_VERBOSE);
-    cam.listDevices();
-    cam.setDeviceID(0);
+    if(ofFile::doesFileExist("settings.xml")){
+        ofxXmlSettings appSettings("settings.xml");
+        cam.setDeviceID(appSettings.getValue("deviceID", 1));
+    }else{
+        ofxXmlSettings appSettings("settings.xml");
+        appSettings.addValue("deviceID", 0);
+        appSettings.save("settings.xml");
+        cam.setDeviceID(0);
+    }
 	cam.initGrabber(1280, 720);
 	clone.setup(1280, 720);
 	clone.setStrength(0);
@@ -67,8 +74,9 @@ void testApp::update() {
 			clone.setStrength(strength);
 			clone.update(srcFbo.getTextureReference(), cam.getTextureReference(), maskFbo.getTextureReference());
 		}
-        
-        server.publishTexture(&cam.getTextureReference());
+        if(debug){
+            server.publishTexture(&cam.getTextureReference());
+        }
 	}
 }
 
