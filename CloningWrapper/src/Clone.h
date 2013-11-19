@@ -1,7 +1,7 @@
 #pragma once
 
 #include "ofMain.h"
-
+#include "ofxSyphon.h"
 class Clone {
 public:
 	void setup(int width, int height);
@@ -14,4 +14,5 @@ protected:
 	ofFbo buffer, srcBlur, dstBlur;
 	ofShader maskBlurShader, cloneShader;
 	int strength;
+    ofxSyphonServer server;
 };

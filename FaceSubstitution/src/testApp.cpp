@@ -3,9 +3,15 @@
 using namespace ofxCv;
 
 void testApp::setup() {
+    cout<<"here"<<endl;
 	cloneReady = false;
+    ofSetLogLevel(OF_LOG_VERBOSE);
+    cout<<"loadFace"<<endl;
+    cam.listDevices();
+    cam.setDeviceID(0);
+    cout<<"cams"<<endl;
 	cam.initGrabber(1280, 720);
-	clone.setup(cam.getWidth(), cam.getHeight());
+	clone.setup(1280, 720);
 	clone.setStrength(0);
 	ofFbo::Settings settings;
 	settings.width = cam.getWidth();
@@ -19,8 +25,10 @@ void testApp::setup() {
 	
 	strength = 0;
 	targetStrength = 0;
-
+    cout<<"loadFace"<<endl;
 	loadFace("marina.jpg");
+
+    server.setName("cameraRaw");
 	
 //	ui.setup();
 //	ui.add("rescale", rescale, .5, 1);
@@ -64,14 +72,14 @@ void testApp::update() {
 			clone.setStrength(strength);
 			clone.update(srcFbo.getTextureReference(), cam.getTextureReference(), maskFbo.getTextureReference());
 		}
+        
+        server.publishTexture(&cam.getTextureReference());
 	}
 }
 
 void testApp::draw() {
 	ofSetColor(255);
 	clone.draw(0, 0);
-//	cam.draw(0, 0);
-//	camTracker.draw();
 }
 
 void testApp::loadFace(string face){
@@ -90,4 +98,6 @@ void testApp::keyPressed(int key) {
 	int level = key - '1';
 	level = ofClamp(level, 0, 9);
 	targetStrength = ofMap(level, 1, 9, 0, 25);
+    if(key == 'd')
+        debug=!debug;
 }

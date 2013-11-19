@@ -69,6 +69,9 @@ void Clone::setup(int width, int height) {
 	cloneShader.linkProgram();
 	
 	strength = 0;
+    
+    server.setName("mutual-gaze");
+    
 }
 
 void Clone::maskedBlur(ofTexture& tex, ofTexture& mask, ofFbo& result) {
@@ -116,8 +119,11 @@ void Clone::update(ofTexture& src, ofTexture& dst, ofTexture& mask) {
 	ofDisableAlphaBlending();
 	ofPopStyle();
 	buffer.end();
+    
+    server.publishTexture(&buffer.getTextureReference());
 }
 
 void Clone::draw(float x, float y) {
 	buffer.draw(x, y);
+
 }

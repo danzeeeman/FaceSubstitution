@@ -6,6 +6,7 @@
 #include "ofxFaceTracker.h"
 #include "ofxFaceTrackerThreaded.h"
 
+
 #include "ofxUI.h"
 class ofxEasyUI {
 public:
@@ -42,10 +43,9 @@ public:
 	float attempts = 1; // 1-4
 	
 	ofxEasyUI ui;
-
 	ofxFaceTracker camTracker;
 	ofVideoGrabber cam;
-	
+	ofxSyphonServer server;
 	ofxFaceTracker srcTracker;
 	ofImage src;
 	vector<ofVec2f> srcPoints;
@@ -55,4 +55,6 @@ public:
 	bool cloneReady;
 	Clone clone;
 	ofFbo srcFbo, maskFbo;
+    
+    bool debug;
 };
